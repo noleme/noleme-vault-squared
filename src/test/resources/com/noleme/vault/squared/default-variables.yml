@@ -1,0 +1,5 @@
+variables:
+  first: 'abcdefgh'
+  second: 'ijklmnop'
+  third: 1234
+  fourth: false
