@@ -27,9 +27,13 @@ _TODO_
 
 ## III. Usage
 
-A basic example of using this library with a `yml` configuration file:
+In order to use a `noleme-vault` module, you need to register it on the `VaultParser`, the simplest way is to register it in the `defaultParser`, but you may of course do it on a dedicated `VaultFactory`/`VaultParser` pair.
 
-Given a dummy configuration file `my_conf.yml`:
+```java
+VaultFactory.defaultParser.register(new HashicorpVaultModule());
+```
+
+Afterwards, `noleme-vault` will be able to understand `hashicorp_vault` sections. Here is a basic example of using it in a `yml` configuration file:
 
 ```yaml
 hashicorp_vault:
