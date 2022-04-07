@@ -58,6 +58,23 @@ public class HashicorpVaultModuleTest
     }
 
     @Test
+    public void testLoading_authenticated_shouldMatchWithDefaults() throws VaultException
+    {
+        var vault = Vault.with(
+            HashicorpVaultModuleTest::setVaultTestCredentials,
+            "com/noleme/vault/squared/default-variables.yml",
+            "com/noleme/vault/squared/vault-override.default.yml"
+        );
+
+        var values = vault.instance(Values.class);
+
+        Assertions.assertEquals("mnopqrst", values.first);
+        Assertions.assertEquals("xyz", values.second);
+        Assertions.assertEquals(847, values.third);
+        Assertions.assertEquals(true, values.fourth);
+    }
+
+    @Test
     public void testLoading_unauthenticated_shouldNotMatch() throws VaultException
     {
         var vault = Vault.with(

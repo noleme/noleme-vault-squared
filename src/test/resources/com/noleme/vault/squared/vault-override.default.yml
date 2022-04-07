@@ -1,0 +1,9 @@
+hashicorp_vault:
+  address: 'http://##hashicorp_vault.host##:##hashicorp_vault.port##'
+  token: '##hashicorp_vault.token##'
+  variables:
+    secret/testing:
+      first: first
+      sec: second
+      3rd: third
+      f: fourth
