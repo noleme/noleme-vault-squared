@@ -26,12 +26,6 @@ jobs:
         java-version: ${{ matrix.java }}
     - name: Test with Maven
       run: mvn clean -B test --file pom.xml
-    - name: Generate JaCoCo Badge
-      uses: cicirello/jacoco-badge-generator@v2
+    - uses: codecov/codecov-action@v2
       with:
-        generate-branches-badge: true
-    - name: Upload JaCoCo coverage report
-      uses: actions/upload-artifact@v2
-      with:
-        name: jacoco-report
-        path: reports/jacoco/
+        verbose: true
