@@ -1,6 +1,6 @@
 # Noleme Vault module² for Hashicorp Vault
 
-[![Maven Build](https://github.com/noleme/noleme-vault-squared/actions/workflows/maven.yml/badge.svg?branch=master)](https://github.com/noleme/noleme-vault-squared/actions/workflows/maven.yml)
+[![Maven Build](https://github.com/noleme/noleme-vault-squared/actions/workflows/maven-build.yml/badge.svg?branch=master)](https://github.com/noleme/noleme-vault-squared/actions/workflows/maven.yml)
 [![Maven Central Repository](https://maven-badges.herokuapp.com/maven-central/com.noleme/noleme-vault-squared/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.noleme/noleme-vault-squared)
 [![javadoc](https://javadoc.io/badge2/com.noleme/noleme-vault-squared/javadoc.svg)](https://javadoc.io/doc/com.noleme/noleme-vault-squared)
 ![Coverage](.github/badges/jacoco.svg)
