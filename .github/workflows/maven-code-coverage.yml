@@ -1,4 +1,4 @@
-name: Maven Build
+name: Maven Code Coverage
 
 on:
   push:
