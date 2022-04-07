@@ -46,11 +46,27 @@ hashicorp_vault:
             some_other_key: another_var
 
 variables:
-  # In this example, this value will be overridden by the value found under secret/my-path.some_key in Hashicorp Vault unless it cannot be read
+  # In this example, this value will be overridden by the value found under secret/my-path.some_key in Hashicorp Vault
   my_var: "interesting" 
 ``` 
 
 Afterwards, these will be injectable like any other variable in a [`noleme-vault`](https://github.com/noleme/noleme-vault) container.
+
+At the time of this writing, here are the available vault options you can specify:
+
+```yaml
+hashicorp_vault:
+    address: "http://my-vault-instance:8200" # defaults to the VAULT_ADDR env var
+    token: "my-token" # defaults to the VAULT_TOKEN env var
+    engine_version: 2 # defaults to 2
+    open_timeout: 10 # in seconds, defaults to the VAULT_OPEN_TIMEOUT env var
+    read_timeout: 10 # in seconds, defaults to the VAULT_READ_TIMEOUT env var
+    on_failure: ABORT # available values are IGNORE and ABORT, defaults to ABORT
+```
+
+Note on `on_failure`: a "failure" can occur if the specified secret cannot be found, in which case:
+* `ABORT` will fail the configuration loading
+* `IGNORE` will simply keep on trucking and whatever value previously available in the `Definitions` container will remain
 
 _TODO_
 
