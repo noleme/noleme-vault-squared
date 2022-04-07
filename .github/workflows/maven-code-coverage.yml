@@ -24,9 +24,14 @@ jobs:
       with:
         distribution: temurin
         java-version: ${{ matrix.java }}
-    - name: Build with Maven
+    - name: Test with Maven
       run: mvn clean -B test --file pom.xml
     - name: Generate JaCoCo Badge
       uses: cicirello/jacoco-badge-generator@v2
       with:
         generate-branches-badge: true
+    - name: Upload JaCoCo coverage report
+        uses: actions/upload-artifact@v2
+        with:
+          name: jacoco-report
+          path: reports/jacoco/
