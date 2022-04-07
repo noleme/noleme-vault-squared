@@ -1,0 +1,13 @@
+hashicorp_vault:
+  address: 'http://##hashicorp_vault.host##:##hashicorp_vault.port##'
+  token: '##hashicorp_vault.token##'
+  engine_version: 2
+  open_timeout: 10
+  read_timeout: 10
+  on_failure: IGNORE
+  variables:
+    secret/testing:
+      first: first
+      sec: second
+      3rd: third
+      f: fourth

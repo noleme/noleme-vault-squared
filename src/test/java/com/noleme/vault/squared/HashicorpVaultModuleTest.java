@@ -35,7 +35,7 @@ public class HashicorpVaultModuleTest
             Vault.with(
                 HashicorpVaultModuleTest::setVaultTestCredentials,
                 "com/noleme/vault/squared/default-variables.yml",
-                "com/noleme/vault/squared/vault-override.yml"
+                    "com/noleme/vault/squared/vault-override.ignore.yml"
             );
         });
     }
@@ -46,7 +46,7 @@ public class HashicorpVaultModuleTest
         var vault = Vault.with(
             HashicorpVaultModuleTest::setVaultTestCredentials,
             "com/noleme/vault/squared/default-variables.yml",
-            "com/noleme/vault/squared/vault-override.yml"
+                "com/noleme/vault/squared/vault-override.ignore.yml"
         );
 
         var values = vault.instance(Values.class);
@@ -67,7 +67,7 @@ public class HashicorpVaultModuleTest
                 vars.set("hashicorp_vault.token", "not-my-token");
             },
             "com/noleme/vault/squared/default-variables.yml",
-            "com/noleme/vault/squared/vault-override.yml"
+                "com/noleme/vault/squared/vault-override.ignore.yml"
         );
 
         var values = vault.instance(Values.class);
@@ -76,6 +76,22 @@ public class HashicorpVaultModuleTest
         Assertions.assertEquals("ijklmnop", values.second);
         Assertions.assertEquals(1234, values.third);
         Assertions.assertEquals(false, values.fourth);
+    }
+
+    @Test
+    public void testLoading_unauthenticated_shouldFail()
+    {
+        Assertions.assertThrows(VaultException.class, () -> {
+            Vault.with(
+                vars -> {
+                    vars.set("hashicorp_vault.host", vaultContainer.getHost());
+                    vars.set("hashicorp_vault.port", vaultContainer.getMappedPort(8200));
+                    vars.set("hashicorp_vault.token", "not-my-token");
+                },
+                "com/noleme/vault/squared/default-variables.yml",
+                    "com/noleme/vault/squared/vault-override.abort.yml"
+            );
+        });
     }
 
     private static void setVaultTestCredentials(Variables vars)

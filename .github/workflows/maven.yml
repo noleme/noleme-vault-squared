@@ -10,7 +10,7 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [ ubuntu-latest, macOS-12 ]
+        os: [ ubuntu-latest, macOS-latest ]
         java: [ 11, 17 ]
       fail-fast: false
 
@@ -33,3 +33,7 @@ jobs:
       with:
         name: ${{ matrix.os }}-surefire
         path: target/surefire-reports/*
+    - name: Generate JaCoCo Badge
+      uses: cicirello/jacoco-badge-generator@v2
+      with:
+        generate-branches-badge: true

@@ -3,6 +3,7 @@
 [![Maven Build](https://github.com/noleme/noleme-vault-squared/actions/workflows/maven.yml/badge.svg?branch=master)](https://github.com/noleme/noleme-vault-squared/actions/workflows/maven.yml)
 [![Maven Central Repository](https://maven-badges.herokuapp.com/maven-central/com.noleme/noleme-vault-squared/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.noleme/noleme-vault-squared)
 [![javadoc](https://javadoc.io/badge2/com.noleme/noleme-vault-squared/javadoc.svg)](https://javadoc.io/doc/com.noleme/noleme-vault-squared)
+![Coverage](.github/badges/jacoco.svg)
 ![GitHub](https://img.shields.io/github/license/noleme/noleme-vault-squared)
 
 A [`noleme-vault`](https://github.com/noleme/noleme-vault) module for loading variables from a [Hashicorp Vault](https://github.com/hashicorp/vault) instance.

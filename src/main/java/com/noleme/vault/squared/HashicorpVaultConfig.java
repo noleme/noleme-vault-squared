@@ -22,15 +22,17 @@ public class HashicorpVaultConfig
     private final Integer readTimeout;
     private final Integer engineVersion;
     private final VariableMapping variables;
+    private final BehaviourOnFailure onFailure;
 
     @JsonCreator
     public HashicorpVaultConfig(
         @JsonProperty("address") String address,
         @JsonProperty("token") String token,
-        @JsonProperty("openTimeout") Integer openTimeout,
-        @JsonProperty("readTimeout") Integer readTimeout,
-        @JsonProperty("engineVersion") Integer engineVersion,
-        @JsonProperty("variables") VariableMapping variables
+        @JsonProperty("open_timeout") Integer openTimeout,
+        @JsonProperty("read_timeout") Integer readTimeout,
+        @JsonProperty("engine_version") Integer engineVersion,
+        @JsonProperty("variables") VariableMapping variables,
+        @JsonProperty("on_failure") BehaviourOnFailure onFailure
     )
     {
         this.address = address;
@@ -39,6 +41,7 @@ public class HashicorpVaultConfig
         this.readTimeout = readTimeout;
         this.engineVersion = engineVersion;
         this.variables = variables != null ? variables : new VariableMapping();
+        this.onFailure = onFailure != null ? onFailure : BehaviourOnFailure.ABORT;
     }
 
     public String address()
@@ -71,6 +74,11 @@ public class HashicorpVaultConfig
         return this.variables;
     }
 
+    public BehaviourOnFailure onFailure()
+    {
+        return this.onFailure;
+    }
+
     public static class VariableMapping
     {
         private final Map<String, Map<String, String>> mapping;
@@ -91,5 +99,11 @@ public class HashicorpVaultConfig
         {
             return this.mapping;
         }
+    }
+
+    public enum BehaviourOnFailure
+    {
+        IGNORE,
+        ABORT,
     }
 }
