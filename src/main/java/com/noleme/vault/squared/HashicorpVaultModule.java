@@ -65,7 +65,12 @@ public class HashicorpVaultModule extends GenericModule<HashicorpVaultConfig>
                 for (Map.Entry<String, String> vaultToVariable : vaultToVariableSet.getValue().entrySet())
                 {
                     if (!response.getData().containsKey(vaultToVariable.getKey()))
-                        continue;
+                    {
+                        if (config.onFailure() == HashicorpVaultConfig.BehaviourOnFailure.IGNORE)
+                            continue;
+                        else
+                            throw new VaultParserException("No vault secret could be found for path " + path + " and key " + vaultToVariable.getKey());
+                    }
                     definitions.variables().set(vaultToVariable.getValue(), response.getData().get(vaultToVariable.getKey()));
                 }
             }

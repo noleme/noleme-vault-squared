@@ -30,7 +30,14 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>11</maven.compiler.release>
+        <maven-compiler.version>3.10.1</maven-compiler.version>
+        <maven-surefire.version>3.0.0-M6</maven-surefire.version>
+        <maven-source.version>3.2.1</maven-source.version>
+        <maven-javadoc.version>3.3.2</maven-javadoc.version>
+        <maven-gpg.version>1.6</maven-gpg.version>
         <slf4j.version>1.7.36</slf4j.version>
+        <junit.version>5.8.2</junit.version>
+        <jacoco.version>0.8.7</jacoco.version>
         <driver.version>5.1.0</driver.version>
         <noleme-vault.version>0.16.4</noleme-vault.version>
         <hashicorp-vault-testcontainers.version>1.16.3</hashicorp-vault-testcontainers.version>
@@ -72,7 +79,7 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>5.8.2</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -101,17 +108,36 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.10.1</version>
+                <version>${maven-compiler.version}</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M6</version>
+                <version>${maven-surefire.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>generate-code-coverage-report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.2.1</version>
+                <version>${maven-source.version}</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -124,7 +150,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.3.2</version>
+                <version>${maven-javadoc.version}</version>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
@@ -137,7 +163,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.6</version>
+                <version>${maven-gpg.version}</version>
                 <executions>
                     <execution>
                         <id>sign-artifacts</id>
