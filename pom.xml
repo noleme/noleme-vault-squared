@@ -6,7 +6,7 @@
 
     <groupId>com.noleme</groupId>
     <artifactId>noleme-vault-squared</artifactId>
-    <version>0.1</version>
+    <version>0.1.1</version>
     <packaging>jar</packaging>
 
     <name>Noleme Vault for Hashicorp Vault</name>
@@ -39,7 +39,7 @@
         <junit.version>5.8.2</junit.version>
         <jacoco.version>0.8.8</jacoco.version>
         <driver.version>5.1.0</driver.version>
-        <noleme-vault.version>0.16.4</noleme-vault.version>
+        <noleme-vault.version>0.17.2</noleme-vault.version>
         <hashicorp-vault-testcontainers.version>1.17.1</hashicorp-vault-testcontainers.version>
     </properties>
 

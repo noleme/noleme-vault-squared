@@ -1,7 +1,7 @@
 package com.noleme.vault.squared;
 
 import com.noleme.vault.Vault;
-import com.noleme.vault.container.register.index.Variables;
+import com.noleme.vault.container.register.Definitions;
 import com.noleme.vault.exception.VaultException;
 import com.noleme.vault.factory.VaultFactory;
 import org.junit.ClassRule;
@@ -35,7 +35,7 @@ public class HashicorpVaultModuleTest
             Vault.with(
                 HashicorpVaultModuleTest::setVaultTestCredentials,
                 "com/noleme/vault/squared/default-variables.yml",
-                    "com/noleme/vault/squared/vault-override.ignore.yml"
+                "com/noleme/vault/squared/vault-override.ignore.yml"
             );
         });
     }
@@ -46,7 +46,7 @@ public class HashicorpVaultModuleTest
         var vault = Vault.with(
             HashicorpVaultModuleTest::setVaultTestCredentials,
             "com/noleme/vault/squared/default-variables.yml",
-                "com/noleme/vault/squared/vault-override.ignore.yml"
+            "com/noleme/vault/squared/vault-override.ignore.yml"
         );
 
         var values = vault.instance(Values.class);
@@ -78,13 +78,12 @@ public class HashicorpVaultModuleTest
     public void testLoading_unauthenticated_shouldNotMatch() throws VaultException
     {
         var vault = Vault.with(
-            vars -> {
-                vars.set("hashicorp_vault.host", vaultContainer.getHost());
-                vars.set("hashicorp_vault.port", vaultContainer.getMappedPort(8200));
-                vars.set("hashicorp_vault.token", "not-my-token");
-            },
+            defs -> defs.variables()
+                .set("hashicorp_vault.host", vaultContainer.getHost())
+                .set("hashicorp_vault.port", vaultContainer.getMappedPort(8200))
+                .set("hashicorp_vault.token", "not-my-token"),
             "com/noleme/vault/squared/default-variables.yml",
-                "com/noleme/vault/squared/vault-override.ignore.yml"
+            "com/noleme/vault/squared/vault-override.ignore.yml"
         );
 
         var values = vault.instance(Values.class);
@@ -100,22 +99,23 @@ public class HashicorpVaultModuleTest
     {
         Assertions.assertThrows(VaultException.class, () -> {
             Vault.with(
-                vars -> {
-                    vars.set("hashicorp_vault.host", vaultContainer.getHost());
-                    vars.set("hashicorp_vault.port", vaultContainer.getMappedPort(8200));
-                    vars.set("hashicorp_vault.token", "not-my-token");
-                },
+                defs -> defs.variables()
+                    .set("hashicorp_vault.host", vaultContainer.getHost())
+                    .set("hashicorp_vault.port", vaultContainer.getMappedPort(8200))
+                    .set("hashicorp_vault.token", "not-my-token"),
                 "com/noleme/vault/squared/default-variables.yml",
-                    "com/noleme/vault/squared/vault-override.abort.yml"
+                "com/noleme/vault/squared/vault-override.abort.yml"
             );
         });
     }
 
-    private static void setVaultTestCredentials(Variables vars)
+    private static void setVaultTestCredentials(Definitions defs)
     {
-        vars.set("hashicorp_vault.host", vaultContainer.getHost());
-        vars.set("hashicorp_vault.port", vaultContainer.getMappedPort(8200));
-        vars.set("hashicorp_vault.token", "my-token");
+        defs.variables()
+            .set("hashicorp_vault.host", vaultContainer.getHost())
+            .set("hashicorp_vault.port", vaultContainer.getMappedPort(8200))
+            .set("hashicorp_vault.token", "my-token")
+        ;
     }
 
     private static class Values
