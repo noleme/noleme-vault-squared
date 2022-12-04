@@ -1,7 +1,7 @@
 package com.noleme.vault.squared;
 
 import com.noleme.vault.Vault;
-import com.noleme.vault.container.register.Definitions;
+import com.noleme.vault.container.register.index.Variables;
 import com.noleme.vault.exception.VaultException;
 import com.noleme.vault.factory.VaultFactory;
 import org.junit.ClassRule;
@@ -11,6 +11,8 @@ import org.testcontainers.vault.VaultContainer;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+
+import static com.noleme.vault.parser.adjuster.VaultAdjuster.variables;
 
 /**
  * @author Pierre Lecerf (pierre.lecerf@illuin.tech)
@@ -33,7 +35,7 @@ public class HashicorpVaultModuleTest
     {
         Assertions.assertDoesNotThrow(() -> {
             Vault.with(
-                HashicorpVaultModuleTest::setVaultTestCredentials,
+                variables(HashicorpVaultModuleTest::setVaultTestCredentials),
                 "com/noleme/vault/squared/default-variables.yml",
                 "com/noleme/vault/squared/vault-override.ignore.yml"
             );
@@ -44,7 +46,7 @@ public class HashicorpVaultModuleTest
     public void testLoading_authenticated_shouldMatch() throws VaultException
     {
         var vault = Vault.with(
-            HashicorpVaultModuleTest::setVaultTestCredentials,
+            variables(HashicorpVaultModuleTest::setVaultTestCredentials),
             "com/noleme/vault/squared/default-variables.yml",
             "com/noleme/vault/squared/vault-override.ignore.yml"
         );
@@ -61,7 +63,7 @@ public class HashicorpVaultModuleTest
     public void testLoading_authenticated_shouldMatchWithDefaults() throws VaultException
     {
         var vault = Vault.with(
-            HashicorpVaultModuleTest::setVaultTestCredentials,
+            variables(HashicorpVaultModuleTest::setVaultTestCredentials),
             "com/noleme/vault/squared/default-variables.yml",
             "com/noleme/vault/squared/vault-override.default.yml"
         );
@@ -78,10 +80,11 @@ public class HashicorpVaultModuleTest
     public void testLoading_unauthenticated_shouldNotMatch() throws VaultException
     {
         var vault = Vault.with(
-            defs -> defs.variables()
+            variables(defs -> defs
                 .set("hashicorp_vault.host", vaultContainer.getHost())
                 .set("hashicorp_vault.port", vaultContainer.getMappedPort(8200))
-                .set("hashicorp_vault.token", "not-my-token"),
+                .set("hashicorp_vault.token", "not-my-token")
+            ),
             "com/noleme/vault/squared/default-variables.yml",
             "com/noleme/vault/squared/vault-override.ignore.yml"
         );
@@ -99,19 +102,20 @@ public class HashicorpVaultModuleTest
     {
         Assertions.assertThrows(VaultException.class, () -> {
             Vault.with(
-                defs -> defs.variables()
+                variables(defs -> defs
                     .set("hashicorp_vault.host", vaultContainer.getHost())
                     .set("hashicorp_vault.port", vaultContainer.getMappedPort(8200))
-                    .set("hashicorp_vault.token", "not-my-token"),
+                    .set("hashicorp_vault.token", "not-my-token")
+                ),
                 "com/noleme/vault/squared/default-variables.yml",
                 "com/noleme/vault/squared/vault-override.abort.yml"
             );
         });
     }
 
-    private static void setVaultTestCredentials(Definitions defs)
+    private static void setVaultTestCredentials(Variables defs)
     {
-        defs.variables()
+        defs
             .set("hashicorp_vault.host", vaultContainer.getHost())
             .set("hashicorp_vault.port", vaultContainer.getMappedPort(8200))
             .set("hashicorp_vault.token", "my-token")
