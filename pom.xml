@@ -37,7 +37,7 @@
         <maven-gpg.version>1.6</maven-gpg.version>
         <slf4j.version>1.7.36</slf4j.version>
         <junit.version>5.9.2</junit.version>
-        <jacoco.version>0.8.8</jacoco.version>
+        <jacoco.version>0.8.10</jacoco.version>
         <driver.version>5.1.0</driver.version>
         <noleme-vault.version>0.18.1</noleme-vault.version>
         <hashicorp-vault-testcontainers.version>1.17.6</hashicorp-vault-testcontainers.version>
