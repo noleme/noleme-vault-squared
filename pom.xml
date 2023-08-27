@@ -40,7 +40,7 @@
         <jacoco.version>0.8.10</jacoco.version>
         <driver.version>5.1.0</driver.version>
         <noleme-vault.version>0.18.1</noleme-vault.version>
-        <hashicorp-vault-testcontainers.version>1.17.6</hashicorp-vault-testcontainers.version>
+        <hashicorp-vault-testcontainers.version>1.18.3</hashicorp-vault-testcontainers.version>
     </properties>
 
     <dependencies>
