@@ -39,7 +39,7 @@
         <junit.version>5.10.0</junit.version>
         <jacoco.version>0.8.11</jacoco.version>
         <driver.version>5.1.0</driver.version>
-        <noleme-vault.version>0.18.2</noleme-vault.version>
+        <noleme-vault.version>0.19</noleme-vault.version>
         <hashicorp-vault-testcontainers.version>1.19.3</hashicorp-vault-testcontainers.version>
     </properties>
 
